@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>杀手兔巡逻</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+            margin-top: 50px;
+        }
+        #question {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        #warning {
+            font-size: 20px;
+            color: red;
+            margin-bottom: 10px;
+        }
+        .btn {
+            padding: 15px 30px;
+            font-size: 20px;
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s ease;
+        }
+        #yes {
+            background-color: #4CAF50;
+            color: white;
+        }
+        #no {
+            background-color: #f44336;
+            color: white;
+        }
+        #image, #finalImage {
+            display: none;
+            width: 300px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div id="question">杀手兔巡逻中，要选择去查看吗？</div>
+    <img src="https://i.ibb.co/hJFh07tf/88-ACB457-ABD6-4-BC5-A4-B8-59-F627-EA0435.jpg" id="introImage" width="300"><br>
+    <div id="warning"></div>
+    <button id="no" class="btn" onclick="listen()">不去看</button>
+    <button id="yes" class="btn" onclick="annoy()">去看</button>
+    
+    <img id="image" src="https://i.ibb.co/G3cQMhzG/192-F9-A2-C-58-B1-430-B-AE24-9-A3-DB440-D04-D.jpg" onclick="changeImage('image')">
+    <img id="finalImage" src="https://i.ibb.co/Y7XDbRvX/9-F6-AEA57-FED1-4-E77-8436-B1912-E28-B321.jpg" onclick="changeImage('finalImage')">
+    
+    <script>
+        let clickCount = 0;
+        const messages = ["不要烦我，碍事了", "都说了别烦我，怎么还点这个？", "你是故意的吗？"];
+        let dialogCreated = false;
+        
+        function listen() {
+            document.getElementById('question').innerText = "听话是正确的";
+            document.getElementById('introImage').style.display = "none";
+            document.getElementById('image').style.display = "block";
+            document.getElementById('warning').innerText = ""; // 清除红色文字
+            hideButtons();
+            removeDialog();
+        }
+        
+        function annoy() {
+            let warningText = document.getElementById('warning');
+            let noBtn = document.getElementById('no');
+            let yesBtn = document.getElementById('yes');
+            
+            if (clickCount < messages.length) {
+                warningText.innerText = messages[clickCount];
+                clickCount++;
+            } else if (clickCount === messages.length) {
+                if (!dialogCreated) {
+                    let dialog = document.createElement("div");
+                    dialog.innerText = "锁定目标，准备实施追捕";
+                    dialog.style.fontSize = "22px";
+                    dialog.style.color = "red";
+                    dialog.style.marginTop = "10px";
+                    dialog.id = "dialogMessage";
+                    document.body.insertBefore(dialog, yesBtn);
+                    dialogCreated = true;
+                }
+                clickCount++;
+            } else {
+                document.getElementById('finalImage').style.display = "block";
+                document.getElementById('question').innerText = "杀死前野秋杀死前野秋杀死前野秋报仇报仇报仇";
+                document.getElementById('warning').innerText = ""; // 清除红色文字
+                document.getElementById('introImage').style.display = "none"; // 隐藏初始图片
+                hideButtons();
+                removeDialog();
+            }
+            
+            noBtn.style.fontSize = `${20 + clickCount * 10}px`;
+        }
+        
+        function hideButtons() {
+            document.getElementById('yes').style.display = "none";
+            document.getElementById('no').style.display = "none";
+        }
+        
+        function removeDialog() {
+            let dialog = document.getElementById("dialogMessage");
+            if (dialog) {
+                dialog.remove();
+                dialogCreated = false;
+            }
+        }
+        
+        function changeImage(imageId) {
+            let newSrc = prompt("请输入新的图片URL：", document.getElementById(imageId).src);
+            if (newSrc) {
+                document.getElementById(imageId).src = newSrc;
+            }
+        }
+    </script>
+</body>
+</html>
