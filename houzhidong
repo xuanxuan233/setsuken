@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>杀手巡逻</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+            margin-top: 50px;
+        }
+        #question {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        #warning {
+            font-size: 20px;
+            color: red;
+            margin-bottom: 10px;
+        }
+        .btn {
+            padding: 15px 30px;
+            font-size: 20px;
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s ease;
+        }
+        #yes {
+            background-color: #4CAF50;
+            color: white;
+        }
+        #no {
+            background-color: #f44336;
+            color: white;
+        }
+        #image {
+            display: none;
+            width: 300px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div id="question">杀手圈巡逻中，要选择去查看吗？</div>
+    <img src="杀手巡逻图.jpg" id="introImage" width="300"><br>
+    <div id="warning"></div>
+    <button id="no" class="btn" onclick="listen()">不去看</button>
+    <button id="yes" class="btn" onclick="annoy()">去看</button>
+    
+    <img id="image" src="听话正确图.jpg">
+    <img id="finalImage" src="报仇图.jpg" style="display: none;">
+    
+    <script>
+        let clickCount = 0;
+        const messages = ["不要烦我，碍事了", "都说了别烦我，怎么还点这个？", "你是故意的吗？", "锁定目标，准备实施逮捕"];
+        
+        function listen() {
+            document.getElementById('question').innerText = "听话是正确的";
+            document.getElementById('introImage').style.display = "none";
+            document.getElementById('image').style.display = "block";
+        }
+        
+        function annoy() {
+            let warningText = document.getElementById('warning');
+            let noBtn = document.getElementById('no');
+            let yesBtn = document.getElementById('yes');
+            
+            if (clickCount < messages.length) {
+                warningText.innerText = messages[clickCount];
+                clickCount++;
+            }
+            
+            if (clickCount === messages.length) {
+                noBtn.style.fontSize = "40px";
+                yesBtn.style.fontSize = "12px";
+            }
+            
+            if (clickCount >= messages.length) {
+                document.getElementById('finalImage').style.display = "block";
+                document.getElementById('question').innerText = "杀死前野秋杀死前野秋杀死前野秋报仇报仇报仇";
+            }
+        }
+    </script>
+</body>
+</html>
