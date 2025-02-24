@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>哄哄经</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+            margin-top: 100px;
+        }
+        #text {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        #warning {
+            font-size: 20px;
+            color: red;
+            margin-bottom: 10px;
+        }
+        .btn {
+            padding: 15px 30px;
+            font-size: 20px;
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s ease;
+        }
+        #yes {
+            background-color: #4CAF50;
+            color: white;
+        }
+        #no {
+            background-color: #f44336;
+            color: white;
+            position: absolute;
+        }
+    </style>
+</head>
+<body>
+    <div id="text">《哄哄经》<br>
+        1. 哄哄是天<br>
+        2. 不可辱骂哄哄<br>
+        3. 必须回复哄哄每一条信息<br>
+        4. 必须主动频繁的找哄哄聊天<br>
+        5. 必须要细心的照顾好哄哄的小情绪<br>
+        6. 不许和哄哄玩欲擒故纵吊着哄哄让哄哄胡思乱想<br>
+        7. 不能跟其他人讲话忽视掉哄哄<br>
+        8. 不能跟哄哄大吼大叫<br>
+        9. 永远记住哄哄是最萌的
+    </div>
+    <div id="warning"></div>
+    <button id="yes" class="btn" onclick="confirmAgree()">愿意，并且熟读背诵</button>
+    <button id="no" class="btn" onclick="shrinkNo()" style="margin-left: 20px;">不愿意</button>
+
+    <script>
+        let noClickCount = 0;
+        const warnings = ["为什么要选这个？", "你不许选这个！", "不许！！！", "(ー`´ー)"];
+        
+        function confirmAgree() {
+            document.body.innerHTML = "<h1>太好啦，一言为定哦～</h1>";
+        }
+        
+        function shrinkNo() {
+            let yesBtn = document.getElementById('yes');
+            let noBtn = document.getElementById('no');
+            let warningText = document.getElementById('warning');
+            
+            if (noClickCount < warnings.length) {
+                warningText.innerText = warnings[noClickCount];
+                noClickCount++;
+            }
+            
+            let yesSize = parseInt(window.getComputedStyle(yesBtn).fontSize);
+            let noSize = parseInt(window.getComputedStyle(noBtn).fontSize);
+            
+            yesBtn.style.fontSize = (yesSize * 1.2) + 'px';
+            yesBtn.style.padding = (yesSize * 0.8) + 'px ' + (yesSize * 1.6) + 'px';
+            
+            noBtn.style.fontSize = (noSize * 0.8) + 'px';
+            noBtn.style.padding = (noSize * 0.5) + 'px ' + (noSize) + 'px';
+        }
+    </script>
+</body>
+</html>
